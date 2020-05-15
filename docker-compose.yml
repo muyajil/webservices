@@ -15,13 +15,13 @@ services:
       - /etc/group:/etc/group
     environment:
       DOCKER_JUPYTER_IMAGE: jupyterlab-base-img
-      DOCKER_NETWORK_NAME: ${PROXY_NETWORK_NAME}
+      DOCKER_NETWORK_NAME: base-network
       HUB_IP: jupyterhub
       VIRTUAL_HOST: jupyter.${TLD}
       LETSENCRYPT_HOST: jupyter.${TLD}
       VIRTUAL_PORT: 8000
     networks:
-      - ${PROXY_NETWORK_NAME}
+      - base-network
 
   # Configuration for the single-user servers
   # Only here so that we can use ./build-all.sh
@@ -44,8 +44,8 @@ services:
       - "${VOLUMES_PATH}/bitwarden:/data"
     restart: unless-stopped
     networks:
-      - ${PROXY_NETWORK_NAME}
+      - base-network
   # [END] bitwarden
 networks:
-  ${PROXY_NETWORK_NAME}:
+  base-network:
     external: true
