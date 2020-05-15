@@ -6,7 +6,6 @@ services:
   jupyterhub:
     build: jupyterhub
     image: jupyterhub-img
-    container_name: jupyterhub
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${VOLUMES_PATH}/jupyterhub/config:/srv/jupyterhub
@@ -29,15 +28,12 @@ services:
   jupyterlab:
     build: jupyterlab
     image: jupyterlab-base-img
-    container_name: jupyterlab
     command: echo
   # [END] JupyterHub
   # [START] bitwarden
   bitwarden:
     image: bitwardenrs/server:latest
-    container_name: bitwarden
     environment:
-      PROXY_LOCATION: bitwarden
       VIRTUAL_HOST: bitwarden.${TLD}
       LETSENCRYPT_HOST: bitwarden.${TLD}
       VIRTUAL_PORT: 80
