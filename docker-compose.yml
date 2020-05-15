@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+  # [START] JupyterHub
+  # Configuration for Hub+Proxy
+  jupyterhub:
+    build: jupyterhub
+    image: jupyterhub-img
+    container_name: jupyterhub
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${VOLUMES_PATH}/jupyterhub/config:/srv/jupyterhub
+      - ${VOLUMES_PATH}/jupyterhub/home:/home
+      - /etc/passwd:/etc/passwd
+      - /etc/shadow:/etc/shadow
+      - /etc/group:/etc/group
+    environment:
+      DOCKER_JUPYTER_IMAGE: jupyterlab-base-img
+      DOCKER_NETWORK_NAME: ${PROXY_NETWORK_NAME}
+      HUB_IP: jupyterhub
+      VIRTUAL_HOST: jupyter.${TLD}
+      LETSENCRYPT_HOST: jupyter.${TLD}
+      VIRTUAL_PORT: 8000
+    networks:
+      - ${PROXY_NETWORK_NAME}
+
+  # Configuration for the single-user servers
+  # Only here so that we can use ./build-all.sh
+  jupyterlab:
+    build: jupyterlab
+    image: jupyterlab-base-img
+    container_name: jupyterlab
+    command: echo
+  # [END] JupyterHub
+  # [START] bitwarden
+  bitwarden:
+    image: bitwardenrs/server:latest
+    container_name: bitwarden
+    environment:
+      PROXY_LOCATION: bitwarden
+      VIRTUAL_HOST: bitwarden.${TLD}
+      LETSENCRYPT_HOST: bitwarden.${TLD}
+      VIRTUAL_PORT: 80
+      SIGNUPS_ALLOWED: "true"
+      DOMAIN: https://bitwarden.${TLD}
+      ADMIN_TOKEN: ${ADMIN_TOKEN_BITWARDEN}
+    volumes:
+      - "${VOLUMES_PATH}/bitwarden:/data"
+    restart: unless-stopped
+    networks:
+      - ${PROXY_NETWORK_NAME}
+  # [END] bitwarden
+networks:
+  ${PROXY_NETWORK_NAME}:
+    external: true
