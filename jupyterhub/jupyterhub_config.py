@@ -13,6 +13,6 @@ c.JupyterHub.services = [
         'command': 'python /srv/jupyterhub/cull_idle_servers.py --timeout=3600'.split(),
     },
 ]
-c.Authenticator.whitelist = {'muy', 'chrigi', 'vince', 'dmaag', 'fdaniel'}
+c.Authenticator.whitelist = {'muy', 'chrigi', 'vince', 'dmaag', 'fdaniel', 'johan'}
 c.Authenticator.admin_users = {'muy'}
 c.SystemUserSpawner.host_homedir_format_string = '/home/srv-user/volumes/jupyterhub/home/{username}'
