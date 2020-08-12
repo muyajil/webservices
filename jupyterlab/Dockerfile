@@ -6,7 +6,7 @@ ENV CONDA_PREFIX="/opt/miniconda3"
 ENV TINI_VERSION="v0.19.0"
 ENV SHELL=/bin/bash
 
-RUN apt-get update && apt-get install -y curl git-core
+RUN apt-get update && apt-get install -y curl git-core sudo
 
 RUN curl -fsSL -o /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash /tmp/miniconda.sh -b -p /opt/miniconda3
