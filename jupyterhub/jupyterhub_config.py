@@ -1,4 +1,3 @@
-# ln this file to /home/srv-user/volumes/jupyterhub/jupyterhub_config.py
 import os
 
 c.JupyterHub.spawner_class = 'dockerspawner.SystemUserSpawner'
@@ -10,7 +9,7 @@ c.JupyterHub.services = [
     {
         'name': 'cull_idle',
         'admin': True,
-        'command': 'python /srv/jupyterhub/cull_idle_servers.py --timeout=3600'.split(),
+        'command': 'python /cull_idle_servers.py --timeout=3600'.split(),
     },
 ]
 c.Authenticator.whitelist = {'muy', 'chrigi', 'vince', 'dmaag', 'fdaniel', 'johan'}
