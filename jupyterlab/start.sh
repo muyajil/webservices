@@ -77,7 +77,7 @@ if [ $(id -u) == 0 ] ; then
     fi
 
     # Change UID:GID of NB_USER to NB_UID:NB_GID if it does not match
-    if [ "$NB_UID" != $(id -u $NB_USER 2>/dev/null) ] || [ "$NB_GID" != $(id -g $NB_USER2>/dev/null) ]; then
+    if [ "$NB_UID" != $(id -u $NB_USER 2>/dev/null) ] || [ "$NB_GID" != $(id -g $NB_USER 2>/dev/null) ]; then
         echo "Set user $NB_USER UID:GID to: $NB_UID:$NB_GID"
         if [ "$NB_GID" != $(id -g $NB_USER 2>/dev/null) ]; then
             groupadd -g $NB_GID -o ${NB_GROUP:-${NB_USER}}
