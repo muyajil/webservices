@@ -35,6 +35,7 @@ ADD add-kernel.sh /usr/bin/add-kernel
 ADD start.sh /usr/local/bin/start.sh
 ADD start-singleuser.sh /usr/local/bin/start-singleuser.sh
 ADD start-notebook.sh /usr/local/bin/start-notebook.sh
+ADD conda-init-config.sh /conda-init-config.sh
 
 EXPOSE 8888
 
