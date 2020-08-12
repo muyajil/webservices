@@ -82,7 +82,7 @@ if [ $(id -u) == 0 ] ; then
         if [ "$NB_GID" != "$(id -g $NB_USER 2>/dev/null)" ]; then
             groupadd -g $NB_GID -o ${NB_GROUP:-${NB_USER}}
         fi
-        userdel $NB_USER 2>/dev/null
+        userdel $NB_USER || true
         useradd --home /home/$NB_USER -u $NB_UID -g $NB_GID -G 100 -l $NB_USER
     fi
 
