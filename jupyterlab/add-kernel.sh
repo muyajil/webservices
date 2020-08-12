@@ -10,7 +10,7 @@ fi;
 export ENV_NAME="$1"
 
 conda create -y -n $ENV_NAME ipykernel
-. conda activate $ENV_NAME
+source activate $ENV_NAME
 python -m ipykernel install --user --name $ENV_NAME
 jupyter --paths > /dev/null
 echo "Kernel $ENV_NAME installed!"
