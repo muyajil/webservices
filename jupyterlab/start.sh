@@ -79,10 +79,10 @@ if [ $(id -u) == 0 ] ; then
     # Change UID:GID of NB_USER to NB_UID:NB_GID if it does not match
     if [ "$NB_UID" != "$(id -u $NB_USER 2>/dev/null)" ] || [ "$NB_GID" != "$(id -g $NB_USER 2>/dev/null)" ]; then
         echo "Set user $NB_USER UID:GID to: $NB_UID:$NB_GID"
-        if [ "$NB_GID" != $(id -g $NB_USER 2>/dev/null) ]; then
+        if [ "$NB_GID" != "$(id -g $NB_USER 2>/dev/null)" ]; then
             groupadd -g $NB_GID -o ${NB_GROUP:-${NB_USER}}
         fi
-        userdel $NB_USER
+        userdel $NB_USER 2>/dev/null
         useradd --home /home/$NB_USER -u $NB_UID -g $NB_GID -G 100 -l $NB_USER
     fi
 
