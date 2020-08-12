@@ -9,4 +9,4 @@ jupyter labextension install @jupyterlab/server-proxy --no-build
 jupyter labextension install @jupyterlab/debugger --no-build
 # jupyter serverextension enable --py jupyterlab_git --sys-prefix
 jupyter lab build
-jupyter serverextension enable --py jupyterlab_code_formatter
+# jupyter serverextension enable --py jupyterlab_code_formatter
