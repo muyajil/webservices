@@ -35,6 +35,6 @@ fi
 if [ ! -z "$JPY_HUB_API_URL" ]; then
     NOTEBOOK_ARGS="--hub-api-url=$JPY_HUB_API_URL $NOTEBOOK_ARGS"
 fi
-NOTEBOOK_BIN="jupyterhub-singleuser"
+NOTEBOOK_BIN="/opt/miniconda3/bin/jupyterhub-singleuser"
 
 . /usr/local/bin/start.sh $NOTEBOOK_BIN $NOTEBOOK_ARGS "$@"
