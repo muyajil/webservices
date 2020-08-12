@@ -32,6 +32,9 @@ RUN conda init bash
 
 ADD init.sh /init.sh
 ADD add-kernel.sh /usr/bin/add-kernel
+ADD start.sh /usr/local/bin/start.sh
+ADD start-singleuser.sh /usr/local/bin/start-singleuser.sh
+ADD start-notebook.sh /usr/local/bin/start-notebook.sh
 
 EXPOSE 8888
 
