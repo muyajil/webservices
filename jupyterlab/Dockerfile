@@ -21,7 +21,7 @@ RUN conda install -c conda-forge \
     jupyter-vscode-proxy \
     jupyter_contrib_nbextensions \
     jupyterlab-git \
-    jupyterlab_code_formatter \
+    # jupyterlab_code_formatter \
     jupyterhub=1.0.0 \
     jupyter_nbextensions_configurator
 

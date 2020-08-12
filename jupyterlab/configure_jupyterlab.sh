@@ -2,7 +2,7 @@
 
 jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build
 # jupyter labextension install @jupyterlab/git --no-build
-jupyter labextension install @ryantam626/jupyterlab_code_formatter --no-build
+# jupyter labextension install @ryantam626/jupyterlab_code_formatter --no-build
 jupyter labextension install @jupyterlab/toc --no-build
 jupyter labextension install jupyterlab-jupytext --no-build
 jupyter labextension install @jupyterlab/server-proxy --no-build
