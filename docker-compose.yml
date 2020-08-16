@@ -14,6 +14,7 @@ services:
     environment:
       DOCKER_JUPYTER_IMAGE: muyajil/devbox:latest
       DOCKER_NETWORK_NAME: base-network
+      HOME_PREFIX: ${VOLUMES_PATH}/jupyterhub
       HUB_IP: jupyterhub
       VIRTUAL_HOST: jupyter.${TLD}
       LETSENCRYPT_HOST: jupyter.${TLD}
