@@ -4,8 +4,7 @@ services:
   # [START] JupyterHub
   # Configuration for Hub+Proxy
   jupyterhub:
-    build: jupyterhub
-    image: jupyterhub-img
+    image: muyajil/jupyterhub:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${VOLUMES_PATH}/jupyterhub/home:/home
@@ -13,7 +12,7 @@ services:
       - /etc/shadow:/etc/shadow
       - /etc/group:/etc/group
     environment:
-      DOCKER_JUPYTER_IMAGE: jupyterlab-base-img
+      DOCKER_JUPYTER_IMAGE: muyajil/devbox:latest
       DOCKER_NETWORK_NAME: base-network
       HUB_IP: jupyterhub
       VIRTUAL_HOST: jupyter.${TLD}
@@ -22,13 +21,6 @@ services:
     networks:
       - base-network
     restart: unless-stopped
-
-  # Configuration for the single-user servers
-  # Only here so that we can use ./build-all.sh
-  jupyterlab:
-    build: jupyterlab
-    image: jupyterlab-base-img
-    command: echo
   # [END] JupyterHub
   # [START] bitwarden
   bitwarden:
