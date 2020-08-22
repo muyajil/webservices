@@ -39,6 +39,19 @@ services:
     networks:
       - base-network
   # [END] bitwarden
+  # [START] file drop  
+  filedrop:
+    image: leucos/filedrop:latest
+    environment:
+      VIRTUAL_HOST: drop.${TLD}
+      LETSENCRYPT_HOST: drop.${TLD}
+      VIRTUAL_PORT: 5000
+    volumes:
+      - "${VOLUMES_PATH}/drop:/app/uploads"
+    restart: unless-stopped
+    networks:
+      - base-network
+  # [END] file drop
 networks:
   base-network:
     external: true
