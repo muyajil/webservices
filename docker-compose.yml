@@ -41,13 +41,13 @@ services:
   # [END] bitwarden
   # [START] file drop  
   filedrop:
-    image: leucos/filedrop:latest
+    image: muyajil/filedrop:latest
     environment:
       VIRTUAL_HOST: drop.${TLD}
       LETSENCRYPT_HOST: drop.${TLD}
       VIRTUAL_PORT: 5000
     volumes:
-      - "${VOLUMES_PATH}/drop:/app/uploads"
+      - "${VOLUMES_PATH}/drop:/uploads"
     restart: unless-stopped
     networks:
       - base-network
