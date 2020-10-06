@@ -52,6 +52,34 @@ services:
     networks:
       - base-network
   # [END] file drop
+  # [START] BTC Node
+  btc-node:
+    image: kylemanna/bitcoind:latest
+    volumes:
+      - "${VOLUMES_PATH}/btc-node:/bitcoin"
+    ports:
+      - 8333:8333
+    environment:
+      RPCUSER: ${BTC_RPC_USER}
+      RPCPASSWORD: ${BTC_RPC_PASS}
+    networks:
+      - btc-network
+  # [END] BTC Node
+  # [START] BTC Frontend
+  btc-frontend:
+    image: 01cnode
+    environment:
+      VIRTUAL_HOST: btc.${TLD}
+      LETSENCRYPT_HOST: btc.${TLD}
+      VIRTUAL_PORT: 5000
+    volumes:
+      - "${VOLUMES_PATH}/btc-frontend/config:/opt/01cnode/config"
+      - "${VOLUMES_PATH}/btc-frontend/server.log:/opt/01cnode/server.log"
+    networks:
+      - btc-network
+      - base-network
+  # [END] BTC Frontend
 networks:
   base-network:
     external: true
+  btc-network:
