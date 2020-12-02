@@ -64,6 +64,7 @@ services:
       RPCPASSWORD: ${BTC_RPC_PASS}
     networks:
       - btc-network
+    restart: unless-stopped
   # [END] BTC Node
   # [START] BTC Frontend
   btc-frontend:
@@ -78,6 +79,7 @@ services:
     networks:
       - btc-network
       - base-network
+    restart: unless-stopped
   # [END] BTC Frontend
 networks:
   base-network:
