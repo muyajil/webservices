@@ -81,6 +81,17 @@ services:
       - base-network
     restart: unless-stopped
   # [END] BTC Frontend
+  # [START] Excalidraw
+  excalidraw:
+    image: excalidraw/excalidraw
+    environment:
+      VIRTUAL_HOST: excalidraw.${TLD}
+      LETSENCRYPT_HOST: excalidraw.${TLD}
+      VIRTUAL_PORT: 80
+    networks:
+      - base-network
+    restart: unless-stopped
+  # [END] Excalidraw
 networks:
   base-network:
     external: true
