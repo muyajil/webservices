@@ -56,7 +56,7 @@ services:
   btc-node:
     image: kylemanna/bitcoind:latest
     volumes:
-      - "${VOLUMES_PATH}/btc-node:/bitcoin"
+      - "${VOLUMES_PATH}/btc-node/.bitcoin:/bitcoin/.bitcoin"
     ports:
       - 8333:8333
     environment:
