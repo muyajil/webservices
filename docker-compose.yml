@@ -1,6 +1,21 @@
 version: "3"
 
 services:
+  # [START] HOME ASSISTANT
+#  homeassistant:
+#    image: ghcr.io/home-assistant/home-assistant:stable
+#    privileged: true
+#    volumes:
+#      - ${VOLUMES_PATH}/homeassistant
+#    environment:
+#      TZ: Europe/Zurich
+#      VIRTUAL_HOST: hass.${TLD}
+#      LETSENCRYPT_HOST: hass.${TLD}
+#      VIRTUAL_PORT: 8123
+#    networks:
+#      - base-network  
+#    restart: unless-stopped
+  # [END] HOMEASSISTANT
   # [START] JupyterHub
   # Configuration for Hub+Proxy
   jupyterhub:
@@ -25,7 +40,7 @@ services:
   # [END] JupyterHub
   # [START] bitwarden
   bitwarden:
-    image: bitwardenrs/server:latest
+    image: vaultwarden/server:latest
     environment:
       VIRTUAL_HOST: bitwarden.${TLD}
       LETSENCRYPT_HOST: bitwarden.${TLD}
