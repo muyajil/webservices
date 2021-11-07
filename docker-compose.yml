@@ -1,17 +1,10 @@
 version: "3"
 
 services:
-  # [START] SHELL IN A BOX
+  # [START] WETTY
   wetty:
-    image: svenihoney/wetty
-    volumes:
-      - /home/muy/.ssh/id_rsa:/config/id_rsa:ro
+    image: wettyoss/wetty
     environment:
-      REMOTE_SSH_SERVER: host.docker.internal
-      REMOTE_SSH_PORT: 22
-      REMOTE_SSH_USER: muy
-      SSH_AUTH: publickey
-      SSH_KEY: /config/id_rsa
       VIRTUAL_HOST: term.${TLD}
       LETSENCRYPT_HOST: term.${TLD}
       VIRTUAL_PORT: 3000  
@@ -19,22 +12,8 @@ services:
       - "host.docker.internal:host-gateway"
     networks:
       - base-network
-  # [END] SHELL IN A BOX
-  # [START] HOME ASSISTANT
-#  homeassistant:
-#    image: ghcr.io/home-assistant/home-assistant:stable
-#    privileged: true
-#    volumes:
-#      - ${VOLUMES_PATH}/homeassistant
-#    environment:
-#      TZ: Europe/Zurich
-#      VIRTUAL_HOST: hass.${TLD}
-#      LETSENCRYPT_HOST: hass.${TLD}
-#      VIRTUAL_PORT: 8123
-#    networks:
-#      - base-network  
-#    restart: unless-stopped
-  # [END] HOMEASSISTANT
+    command: --ssh-host=host.docker.internal
+  # [END] WETTY
   # [START] JupyterHub
   # Configuration for Hub+Proxy
   jupyterhub:
