@@ -1,19 +1,36 @@
 version: "3"
 
 services:
-  # [START] WEBDAV
-  photos-webdav:
+  # [START] WEBDAV AHMED
+  ahmed-webdav:
     image: ugeek/webdav:amd64
     volumes:
-      - $MEDIA_PATH/photos/photo-upload:/media
+      - /home/ahmed:/media
     environment:
-      USERNAME: $PHOTO_USER
-      PASSWORD: $PHOTO_PW
+      USERNAME: ahmed
+      PASSWORD: $AHMED_WEBDAV_PW
+      UID: 1010
+      GID: 1010
+      TZ: Europe/Zurich
+      VIRTUAL_HOST: ahmed-drive.${TLD}
+      LETSENCRYPT_HOST: ahmed-drive.${TLD}
+      VIRTUAL_PORT: 80
+    networks:
+      - base-network
+  # [END] WEBDAV
+  # [START] WEBDAV
+  media-webdav:
+    image: ugeek/webdav:amd64
+    volumes:
+      - $MEDIA_PATH:/media
+    environment:
+      USERNAME: $MEDIA_USER
+      PASSWORD: $MEDIA_PW
       UID: 1000
       GID: 1000
       TZ: Europe/Zurich
-      VIRTUAL_HOST: photo-upload.${TLD}
-      LETSENCRYPT_HOST: photo-upload.${TLD}
+      VIRTUAL_HOST: media.${TLD}
+      LETSENCRYPT_HOST: media.${TLD}
       VIRTUAL_PORT: 80
     networks:
       - base-network
