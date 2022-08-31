@@ -17,6 +17,7 @@ services:
       VIRTUAL_PORT: 80
     networks:
       - base-network
+    restart: unless-stopped
   # [END] WEBDAV
   # [START] JupyterHub
   # Configuration for Hub+Proxy
