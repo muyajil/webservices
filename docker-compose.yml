@@ -1,6 +1,28 @@
 version: "3"
 
 services:
+  # [START] SYNCTHING
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    hostname: syncthing.srv.ajil.ch
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/London
+      VIRTUAL_HOST: syncthing.${TLD}
+      LETSENCRYPT_HOST: syncthing.${TLD}
+      VIRTUAL_PORT: 8384
+    volumes:
+      - ${VOLUMES_PATH}/syncthing/config:/config
+      - ${VOLUMES_PATH}/syncthing/photos_landing_zone:/photos_landing_zone
+    ports:
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    networks:
+      - base-network
+    restart: unless-stopped
+  # [END] SYNCTHING
   # [START] WEBDAV
   photos-webdav:
     image: ugeek/webdav:amd64
