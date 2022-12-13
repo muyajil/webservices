@@ -23,46 +23,6 @@ services:
       - base-network
     restart: unless-stopped
   # [END] SYNCTHING
-  # [START] WEBDAV
-  photos-webdav:
-    image: ugeek/webdav:amd64
-    volumes:
-      - $MEDIA_PATH/photos/photos:/media
-    environment:
-      USERNAME: $PHOTO_USER
-      PASSWORD: $PHOTO_PW
-      UID: 1000
-      GID: 1000
-      TZ: Europe/Zurich
-      VIRTUAL_HOST: photo-upload.${TLD}
-      LETSENCRYPT_HOST: photo-upload.${TLD}
-      VIRTUAL_PORT: 80
-    networks:
-      - base-network
-    restart: unless-stopped
-  # [END] WEBDAV
-  # [START] JupyterHub
-  # Configuration for Hub+Proxy
-  jupyterhub:
-    image: muyajil/jupyterhub:latest
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${VOLUMES_PATH}/jupyterhub/home:/home
-      - /etc/passwd:/etc/passwd
-      - /etc/shadow:/etc/shadow
-      - /etc/group:/etc/group
-    environment:
-      DOCKER_JUPYTER_IMAGE: muyajil/devbox:latest
-      DOCKER_NETWORK_NAME: base-network
-      HOME_PREFIX: ${VOLUMES_PATH}/jupyterhub
-      HUB_IP: jupyterhub
-      VIRTUAL_HOST: jupyter.${TLD}
-      LETSENCRYPT_HOST: jupyter.${TLD}
-      VIRTUAL_PORT: 8000
-    networks:
-      - base-network
-    restart: unless-stopped
-  # [END] JupyterHub
   # [START] bitwarden
   bitwarden:
     image: vaultwarden/server:latest
@@ -92,36 +52,6 @@ services:
     networks:
       - base-network
   # [END] file drop
-  # [START] BTC Node
-  btc-node:
-    image: kylemanna/bitcoind:latest
-    volumes:
-      - "${VOLUMES_PATH}/btc-node/.bitcoin:/bitcoin/.bitcoin"
-    ports:
-      - 8333:8333
-    environment:
-      RPCUSER: ${BTC_RPC_USER}
-      RPCPASSWORD: ${BTC_RPC_PASS}
-    networks:
-      - btc-network
-    restart: unless-stopped
-  # [END] BTC Node
-  # [START] BTC Frontend
-  btc-frontend:
-    image: 01cnode
-    environment:
-      VIRTUAL_HOST: btc.${TLD}
-      LETSENCRYPT_HOST: btc.${TLD}
-      VIRTUAL_PORT: 5000
-    volumes:
-      - "${VOLUMES_PATH}/btc-frontend/config:/opt/01cnode/config"
-      - "${VOLUMES_PATH}/btc-frontend/server.log:/opt/01cnode/server.log"
-    networks:
-      - btc-network
-      - base-network
-    restart: unless-stopped
-  # [END] BTC Frontend
 networks:
   base-network:
     external: true
-  btc-network:
