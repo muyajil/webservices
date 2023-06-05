@@ -52,6 +52,21 @@ services:
     networks:
       - base-network
   # [END] file drop
+  # [START] ICORNER YNAB SYNC
+  icorner_ynab_sync:
+    image: muyajil/icorner_ynab_sync:latest
+    environment:
+      YNAB_API_KEY: ${YNAB_API_KEY}
+      YNAB_BUDGET_ID: ${YNAB_BUDGET_ID}
+      YNAB_ACCOUNT_ID: ${YNAB_ACCOUNT_ID}
+      ICORNER_USERNAME: ${ICORNER_USERNAME}
+      ICORNER_PASSWORD: ${ICORNER_PASSWORD}
+      VIRTUAL_HOST: icorner.${TLD}
+      LETSENCRYPT_HOST: icorner.${TLD}
+      VIRTUAL_PORT: 8000
+    networks:
+      - base-network
+  # [END] ICORNER YNAB SYNC
 networks:
   base-network:
     external: true
