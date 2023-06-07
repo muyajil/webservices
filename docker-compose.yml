@@ -65,6 +65,7 @@ services:
       VIRTUAL_HOST: icorner.${TLD}
       LETSENCRYPT_HOST: icorner.${TLD}
       VIRTUAL_PORT: 8000
+    restart: unless-stopped
     networks:
       - base-network
   # [END] ICORNER YNAB SYNC
