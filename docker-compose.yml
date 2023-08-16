@@ -70,6 +70,36 @@ services:
     networks:
       - base-network
   # [END] ICORNER YNAB SYNC
+  # [START] Family Calendar
+  family-calendar:
+    image: muyajil/family-calendar:latest
+    environment:
+      VIRTUAL_HOST: famcal.${TLD}
+      LETSENCRYPT_HOST: famcal.${TLD}
+      VIRTUAL_PORT: 8000
+      TZ: Europe/Zurich
+      NAMES: "🧔🏾‍♂️ Papi,🙋🏼‍♀️ Mami,👧🏽 Liana,👦🏽 Louai,👶🏽 Mounir,🎂 Birthdays,🌴 Schulferien"
+      🧔🏾‍♂️ Papi: ${PAPI_ICS}
+      🙋🏼‍♀️ Mami: ${MAMI_ICS}
+      👧🏽 Liana: ${LIANA_ICS}
+      👦🏽 Louai: ${LOUAI_ICS}
+      👶🏽 Mounir: ${MOUNIR_ICS}
+      🎂 Birthdays: ${BDAY_ICS}
+      🌴 Schulferien: ${VACA_ICS}
+#      🧔🏾♂️ Papi QC: ${QC_ICS}
+      COLOR_🧔🏾‍♂️ Papi: "#af7dff"
+      COLOR_🙋🏼‍♀️ Mami: "#f5d27f"
+      COLOR_👧🏽 Liana: "#D81B60"
+      COLOR_👦🏽 Louai: "#4285F4"
+      COLOR_👶🏽 Mounir: "#0B8043"
+      COLOR_🎂 Birthdays: "#bfcaff"
+      COLOR_🌴 Schulferien: "#D50000"
+#      COLOR_🧔🏾♂️ Papi QC: "#768285"
+      DEFAULT_FORMAT: html
+    restart: unless-stopped
+    networks:
+      - base-network
+  # [END] Family Calendar
 networks:
   base-network:
     external: true
