@@ -71,6 +71,22 @@ services:
     networks:
       - base-network
   # [END] ICORNER YNAB SYNC
+  # [START] ICORNER YNAB SYNC
+  available_tracker:
+    image: muyajil/icorner_ynab_sync:latest
+    entrypoint: uvicorn --host 0.0.0.0 icorner_ynab_sync.available_tracker:app
+    environment:
+      YNAB_API_KEY: ${YNAB_API_KEY}
+      YNAB_BUDGET_ID: ${YNAB_BUDGET_ID}
+      YNAB_ACCOUNT_ID: ${YNAB_ACCOUNT_ID}
+      AVAILABLE_CATEGORY_ID: ${AVAILABLE_CATEGORY_ID}
+      VIRTUAL_HOST: available.${TLD}
+      LETSENCRYPT_HOST: available.${TLD}
+      VIRTUAL_PORT: 8000
+    restart: unless-stopped
+    networks:
+      - base-network
+  # [END] ICORNER YNAB SYNC
   # [START] Family Calendar
   family-calendar:
     image: muyajil/family-calendar:latest
