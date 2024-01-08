@@ -33,6 +33,8 @@ services:
       SIGNUPS_ALLOWED: "true"
       DOMAIN: https://bitwarden.${TLD}
       ADMIN_TOKEN: ${ADMIN_TOKEN_BITWARDEN}
+      YUBICO_CLIENT_ID: ${YUBICO_CLIENT_ID}
+      YUBICO_CLIENT_SECRET: ${YUBICO_CLIENT_SECRET}
     volumes:
       - "${VOLUMES_PATH}/bitwarden:/data"
     restart: unless-stopped
