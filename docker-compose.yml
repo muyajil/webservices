@@ -119,6 +119,54 @@ services:
     networks:
       - base-network
   # [END] Family Calendar
+  # [START] Scrutiny
+  scrutiny:
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    environment:
+      VIRTUAL_HOST: hdds.${TLD}
+      LETSENCRYPT_HOST: hdds.${TLD}
+      VIRTUAL_PORT: 8080
+      COLLECTOR_CRON_SCHEDULE: 0 0 * * *
+    cap_add:
+      - SYS_RAWIO
+    volumes:
+      - /run/udev:/run/udev:ro
+      - ${VOLUMES_PATH}/scrutiny/config:/opt/scrutiny/config
+      - ${VOLUMES_PATH}/scrutiny/influxdb:/opt/scrutiny/influxdb
+      - /var/lib/smartmontools/drivedb/drivedb.h:/var/lib/smartmontools/drivedb/drivedb.h:ro
+    devices:
+      - "/dev/sda"
+      - "/dev/sdb"
+      - "/dev/sdc"
+      - "/dev/sdd"
+      - "/dev/sde"
+      - "/dev/sdf"
+    networks:
+      - base-network
+    restart: unless-stopped
+  # [END] Scrutiny
+  # START Duplicacy
+  duplicacy:
+    image: saspus/duplicacy-web:latest
+    hostname: srv.ajil.ch
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: duplicacy.${TLD}
+      LETSENCRYPT_HOST: duplicacy.${TLD}
+      VIRTUAL_PORT: 3875
+      USR_ID: 0
+      GRP_ID: 0
+      TZ: Europe/Zurich
+      DWE_PASSWORD: ${DUPLICACY_PW}
+    volumes:
+      - ${VOLUMES_PATH}/duplicacy/config:/config
+      - ${VOLUMES_PATH}/duplicacy/cache:/cache
+      - ${VOLUMES_PATH}/duplicacy/logs:/logs
+      - ${BACKUP_SOURCE}:/backuproot:rw
+      - ${SSH_KEY_PATH}:/id_rsa
+    networks:
+      - base-network
+  # END Duplicacy
 networks:
   base-network:
     external: true
